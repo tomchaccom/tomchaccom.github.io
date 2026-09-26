@@ -247,6 +247,10 @@
     .nav a { padding: 4px 8px; font-size: 12.5px; }
     section { scroll-margin-top: 104px; }
   }
+  /* list-mode: 카테고리 뷰에서 갠트 숨기고 리스트만 표시 */
+  #timeline.list-mode .gantt, #timeline.list-mode .legend { display: none; }
+  #timeline.list-mode .tl-list { display: block; }
+
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 </style>
 </head>
@@ -692,27 +696,28 @@ if (document.fonts) document.fonts.ready.then(fitLabels);
 let currentView = null;
 function switchView(view) {
   currentView = view;
+  const tl = $("#timeline");
   const ids = ["profile", "timeline", "side", "awards"];
   ids.forEach(id => document.getElementById(id).style.display = "none");
 
+  // 필터·dim 초기화
+  document.querySelectorAll(".bar").forEach(b => b.classList.remove("dim"));
+  document.querySelectorAll(".ms").forEach(m => m.classList.remove("dim"));
+  document.querySelectorAll(".tl-item").forEach(li => li.classList.remove("hide"));
+  tl.classList.remove("list-mode");
+  $("#detail").hidden = true;
+
   if (view === "profile") {
     $("#profile").style.display = "";
+    tl.style.display = "";
     $("#side").style.display = "";
   } else if (view === "awards") {
     $("#awards").style.display = "";
   } else {
-    // project | activity | education
-    $("#timeline").style.display = "";
-    // filter timeline
-    document.querySelectorAll(".bar").forEach(b => {
-      const it = CV.timeline.find(i => i.id === b.dataset.id);
-      b.classList.toggle("dim", it.type !== view);
-    });
-    document.querySelectorAll(".ms").forEach(m => m.classList.toggle("dim", true));
+    // project | activity | education → 리스트 모드로 해당 카테고리만
+    tl.style.display = "";
+    tl.classList.add("list-mode");
     document.querySelectorAll(".tl-item").forEach(li => li.classList.toggle("hide", li.dataset.type !== view));
-    // auto-select first item
-    const list = CV.timeline.filter(i => i.type === view).sort((a, b) => ym(b.start) - ym(a.start));
-    if (list.length) select(list[0].id, { scroll: false });
   }
   document.querySelectorAll(".nav a").forEach(a => a.classList.toggle("on", a.dataset.nav === view));
   window.scrollTo(0, 0);
