@@ -276,9 +276,9 @@
   <section class="profile" id="profile"></section>
 
   <section id="timeline">
-    <p class="eyebrow">02 · Timeline</p>
-    <h2>지금까지 해온 일</h2>
-    <p class="section-desc">프로젝트·대외활동·교육을 한 축에 겹쳐 두었습니다. 막대를 누르면 상세 내용이 열립니다.</p>
+    <p class="eyebrow" id="tlEye">02 · Timeline</p>
+    <h2 id="tlTitle">지금까지 해온 일</h2>
+    <p class="section-desc" id="tlDesc">프로젝트·대외활동·교육을 한 축에 겹쳐 두었습니다. 막대를 누르면 상세 내용이 열립니다.</p>
     <div class="legend">
       <span><i class="sw proj"></i>프로젝트</span>
       <span><i class="sw act"></i>대외활동</span>
@@ -708,6 +708,9 @@ function switchView(view) {
   $("#detail").hidden = true;
 
   if (view === "profile") {
+    $("#tlEye").textContent = "02 · Timeline";
+    $("#tlTitle").textContent = "지금까지 해온 일";
+    $("#tlDesc").textContent = "프로젝트·대외활동·교육을 한 축에 겹쳐 두었습니다. 막대를 누르면 상세 내용이 열립니다.";
     $("#profile").style.display = "";
     tl.style.display = "";
     $("#side").style.display = "";
@@ -715,6 +718,11 @@ function switchView(view) {
     $("#awards").style.display = "";
   } else {
     // project | activity | education → 리스트 모드로 해당 카테고리만
+    const viewMeta = { project: ["Projects", "프로젝트"], activity: ["Activities", "대외활동"], education: ["Education", "교육"] };
+    const [eyeKey, title] = viewMeta[view];
+    $("#tlEye").textContent = eyeKey;
+    $("#tlTitle").textContent = title;
+    $("#tlDesc").textContent = "";
     tl.style.display = "";
     tl.classList.add("list-mode");
     document.querySelectorAll(".tl-item").forEach(li => li.classList.toggle("hide", li.dataset.type !== view));
