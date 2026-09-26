@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Myeongseong Kim · Backend Developer</title>
+<meta name="description" content="AI 기능을 운영 가능한 서비스로 만드는 백엔드 개발자 김명성의 CV" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* 흑백 + 회색 단계만 사용. 유채색 없음. */
+  :root {
+    --bg: #ffffff; --surface: #ffffff; --surface-2: #f4f4f4;
+    --text: #0a0a0a; --text-2: #333333; --muted: #6b6b6b; --line: #e6e6e6; --line-2: #c8c8c8;
+    --font: "IBM Plex Mono", "IBM Plex Sans KR", ui-monospace, Menlo, monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0a0a0a; --surface: #0a0a0a; --surface-2: #171717;
+      --text: #f2f2f2; --text-2: #cfcfcf; --muted: #8c8c8c; --line: #262626; --line-2: #404040;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a0a0a; --surface: #0a0a0a; --surface-2: #171717;
+    --text: #f2f2f2; --text-2: #cfcfcf; --muted: #8c8c8c; --line: #262626; --line-2: #404040;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: var(--font); font-size: 15px; line-height: 1.7; word-spacing: -.18em;
+    -webkit-font-smoothing: antialiased; word-break: keep-all; overflow-wrap: anywhere;
+  }
+  a { color: inherit; text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: currentColor; }
+  code { font-family: var(--font); font-size: .92em; background: var(--surface-2); padding: .05em .35em; border-radius: 2px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  .eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+  .eyebrow::before { content: "// "; }
+  h2 { font-size: 24px; line-height: 1.35; margin: 0 0 8px; font-weight: 700; }
+  .section-desc { color: var(--muted); margin: 0 0 28px; font-size: 14px; }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 20; background: var(--bg);
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    padding: 14px 0; border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a {
+    font-size: 13px; text-decoration: none; color: var(--muted); padding: 4px 10px; border: 1px solid transparent;
+    border-radius: 3px; white-space: nowrap;
+  }
+  .nav a:hover { color: var(--text); border-color: var(--line-2); }
+  .nav a.on { color: var(--bg); background: var(--text); border-color: var(--text); }
+  .top-right { display: flex; align-items: center; gap: 14px; flex: none; }
+  .tlink { font-size: 13px; text-decoration: none; color: var(--text); }
+  .tlink:hover { text-decoration: underline; }
+  section { scroll-margin-top: 64px; }
+  .icon-btn {
+    border: 1px solid var(--line-2); background: var(--surface); color: var(--text);
+    width: 36px; height: 36px; border-radius: 4px; cursor: pointer; display: grid; place-items: center;
+  }
+  .icon-btn:hover { border-color: var(--text); }
+
+  /* ---------- profile ---------- */
+  .profile { padding: 40px 0 56px; border-top: 0; }
+  .name { font-size: clamp(30px, 6vw, 54px); line-height: 1.1; letter-spacing: -.02em; margin: 0; font-weight: 700; }
+  .name-sub { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+  .tagline { font-size: clamp(18px, 2.4vw, 23px); line-height: 1.55; font-weight: 600; margin: 28px 0 18px; max-width: 780px; }
+  .tagline em { font-style: normal; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+  .intro { color: var(--text-2); max-width: 740px; margin: 0; }
+  .intro p { margin: 0 0 12px; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .chip-link {
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid var(--line-2);
+    border-radius: 4px; background: var(--surface); font-size: 13px; text-decoration: none; color: var(--text);
+  }
+  .chip-link:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .chip-link svg { width: 14px; height: 14px; }
+
+
+  .stack { margin-top: 32px; display: grid; gap: 10px; }
+  .stack-row { display: grid; grid-template-columns: 88px 1fr; gap: 12px; align-items: baseline; }
+  .stack-row .k { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 12px; padding: 2px 8px; border-radius: 2px; background: var(--surface-2); color: var(--text-2); }
+
+  /* ---------- timeline (gantt) ---------- */
+  .legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .sw { width: 14px; height: 12px; border-radius: 2px; display: inline-block; border: 1.5px solid var(--text); }
+  .sw.proj { background: var(--text); }
+  .sw.act { background: var(--surface); }
+  .sw.edu { background: var(--line-2); border-color: var(--line-2); }
+  .sw.future { background: repeating-linear-gradient(135deg, var(--line-2) 0 1px, var(--surface) 1px 4px); border-color: var(--line-2); }
+  .sw.award { width: 12px; background: var(--text); border-radius: 50%; }
+  .sw.cert { width: 12px; background: var(--surface); border-radius: 50%; }
+  .sw.now { width: 0; height: 14px; border: 0; border-left: 1.5px dashed var(--text); border-radius: 0; }
+
+  .gantt { background: var(--surface); border: 1px solid var(--line-2); border-radius: 4px; padding: 8px 0 4px; }
+  .g-row { display: grid; grid-template-columns: 104px 1fr; }
+  .g-label {
+    padding: 14px 0 0 16px; font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .06em; border-right: 1px solid var(--line);
+  }
+  .g-track {
+    position: relative; margin-right: 18px;
+    background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
+    background-size: var(--col) 100%;
+  }
+  .g-row + .g-row .g-track, .g-row + .g-row .g-label { border-top: 1px dashed var(--line); }
+  .g-axis .g-track { height: 44px; background-image: none; }
+  .g-axis .g-label { border-right-color: transparent; }
+  .tick { position: absolute; bottom: 6px; transform: translateX(-50%); font-size: 11px; color: var(--muted); }
+  .year { position: absolute; top: 6px; font-size: 12px; font-weight: 600; color: var(--text); padding-left: 6px; border-left: 2px solid var(--text); line-height: 1.2; }
+  .now-line { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1.5px dashed var(--text); z-index: 3; pointer-events: none; }
+  .now-flag { position: absolute; top: 4px; transform: translateX(-50%); font-size: 10px; font-weight: 600; background: var(--text); color: var(--bg); padding: 1px 6px; border-radius: 2px; z-index: 4; white-space: nowrap; }
+
+  .bar {
+    position: absolute; height: 34px; border-radius: 3px; border: 1.5px solid var(--text); cursor: pointer; padding: 0 10px;
+    display: flex; align-items: center; gap: 6px; font-family: var(--font); font-size: 12.5px; font-weight: 600;
+    text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; z-index: 2;
+    transition: transform .15s ease, outline-color .15s ease;
+    outline: 2px solid transparent; outline-offset: 3px;
+    --hatch: repeating-linear-gradient(135deg, var(--line-2) 0 1px, var(--surface) 1px 6px);
+  }
+  .bar.proj { background: linear-gradient(90deg, var(--text) var(--p,100%), transparent var(--p,100%)), var(--hatch); color: var(--bg); }
+  .bar.act  { background: linear-gradient(90deg, var(--surface) var(--p,100%), transparent var(--p,100%)), var(--hatch); color: var(--text); }
+  .bar.edu  { background: linear-gradient(90deg, var(--line-2) var(--p,100%), transparent var(--p,100%)), var(--hatch); color: var(--text); border-color: var(--line-2); }
+  .bar.dim, .ms.dim { opacity: .18; }
+  .tl-item.hide { display: none; }
+  .bar:hover { transform: translateY(-1px); }
+  .bar[aria-pressed="true"], .bar:focus-visible { outline-color: var(--text); }
+  .bar .lbl { overflow: hidden; text-overflow: ellipsis; }
+  .bar.tight { padding: 0 8px; font-size: 11px; line-height: 1.15; }
+  .bar.tight .lbl { white-space: normal; overflow-wrap: normal; word-break: keep-all; }
+  .bar svg { flex: none; width: 13px; height: 13px; }
+
+  .ms {
+    position: absolute; top: 50%; transform: translate(-50%, -50%); width: 16px; height: 16px; border-radius: 50%;
+    border: 1.5px solid var(--text); padding: 0; cursor: pointer; z-index: 2; font-family: var(--font); font-size: 10px; font-weight: 700;
+    display: grid; place-items: center; line-height: 1;
+  }
+  .ms.award { background: var(--text); color: var(--bg); }
+  .ms.cert { background: var(--surface); color: var(--text); }
+  .ms.both { background: var(--text); color: var(--bg); box-shadow: 0 0 0 3px var(--surface), 0 0 0 4.5px var(--text); }
+  .ms .tip {
+    position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+    background: var(--text); color: var(--bg); font-size: 12px; font-weight: 500;
+    padding: 8px 10px; border-radius: 3px; white-space: nowrap; text-align: left; line-height: 1.6;
+    opacity: 0; pointer-events: none; transition: opacity .12s; z-index: 10;
+  }
+  .ms:hover .tip, .ms:focus-visible .tip { opacity: 1; }
+
+  /* ---------- mobile list ---------- */
+  .tl-list { display: none; list-style: none; margin: 0; padding: 0; position: relative; }
+  .tl-list::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 1px; background: var(--line-2); }
+  .tl-item { position: relative; padding-left: 30px; margin-bottom: 12px; }
+  .tl-dot { position: absolute; left: 1px; top: 18px; width: 13px; height: 13px; border: 1.5px solid var(--text); box-shadow: 0 0 0 3px var(--bg); }
+  .tl-dot.proj { background: var(--text); } .tl-dot.act { background: var(--bg); }
+  .tl-dot.edu { background: var(--line-2); border-color: var(--line-2); }
+  .tl-btn {
+    width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--line-2); border-radius: 4px;
+    padding: 12px 14px; cursor: pointer; color: var(--text); font-family: var(--font);
+  }
+  .tl-btn[aria-expanded="true"] { border-color: var(--text); }
+  .tl-btn .period { font-size: 11.5px; color: var(--muted); }
+  .tl-btn .t { display: block; font-weight: 700; font-size: 15px; margin: 2px 0; }
+  .tl-btn .s { display: block; font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ---------- detail panel ---------- */
+  .detail {
+    margin-top: 16px; background: var(--surface); border: 1px solid var(--text); border-radius: 4px;
+    padding: 28px; scroll-margin-top: 16px;
+  }
+  .detail[hidden] { display: none; }
+  .d-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); }
+  .pill { font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 2px; border: 1px solid var(--text); }
+  .pill.proj { background: var(--text); color: var(--bg); }
+  .pill.act { background: var(--surface); color: var(--text); }
+  .pill.edu { background: var(--line-2); color: var(--text); border-color: var(--line-2); }
+  .pill.award { background: var(--surface); color: var(--text); }
+  .pill.plain { background: var(--surface-2); color: var(--text-2); border-color: transparent; }
+  .dot-sep { color: var(--line-2); }
+  .d-title { font-size: 24px; margin: 12px 0 4px; line-height: 1.35; font-weight: 700; }
+  .d-title a { text-decoration: none; }
+  .d-title a:hover { text-decoration: underline; }
+  .d-sub { color: var(--text-2); margin: 0 0 16px; }
+  .d-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .d-h { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 24px 0 8px; }
+  .d-h::before { content: "## "; }
+  .d-list { margin: 0; padding-left: 0; list-style: none; color: var(--text-2); }
+  .d-list li { margin-bottom: 7px; padding-left: 20px; position: relative; }
+  .d-list li::before { content: "-"; position: absolute; left: 4px; color: var(--muted); }
+  .d-note { background: var(--surface-2); border-left: 2px solid var(--text); padding: 12px 14px; color: var(--text-2); font-size: 14px; }
+  .child { border-top: 1px dashed var(--line-2); margin-top: 26px; padding-top: 22px; }
+  .child .d-title { font-size: 19px; margin-top: 8px; }
+  .children-tabs { display: flex; gap: 0; flex-wrap: wrap; margin-top: 22px; }
+  .ctab { border: 1px solid var(--text); background: var(--surface); color: var(--text); padding: 6px 14px; font-family: var(--font); font-size: 12.5px; cursor: pointer; }
+  .ctab + .ctab { border-left: 0; }
+  .ctab:first-child { border-radius: 3px 0 0 3px; } .ctab:last-child { border-radius: 0 3px 3px 0; }
+  .ctab[aria-selected="true"] { background: var(--text); color: var(--bg); }
+
+  /* ---------- side projects ---------- */
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--line-2); border-radius: 4px; padding: 20px; text-decoration: none; display: block; transition: border-color .15s; }
+  .card:hover { border-color: var(--text); }
+  .card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+  .card h3 span { font-size: 11.5px; font-weight: 400; color: var(--muted); }
+  .card p { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+  /* ---------- awards ---------- */
+  .ac-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ac-box { background: var(--surface); border: 1px solid var(--line-2); border-radius: 4px; padding: 8px 20px; }
+  .ac-box h3 { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 14px 0 4px; font-weight: 500; }
+  .ac-item { display: grid; grid-template-columns: 72px 1fr; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .ac-item:first-of-type { border-top: 0; }
+  .ac-item .date { font-size: 12.5px; color: var(--muted); padding-top: 1px; }
+  .ac-item .what { font-weight: 600; }
+  .ac-item .rank { font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+  .ac-item .by { display: block; font-size: 13px; color: var(--muted); font-weight: 400; }
+  .ac-item .rel { display: inline-block; margin-top: 6px; font-size: 12px; color: var(--text); background: var(--surface); border: 1px solid var(--line-2); border-radius: 2px; padding: 1px 8px; cursor: pointer; font-family: var(--font); }
+  .ac-item .rel:hover { border-color: var(--text); }
+
+  footer { padding: 36px 0 56px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 760px) {
+    .wrap { padding: 0 16px; }
+    section { padding: 44px 0; }
+    .cards, .ac-grid { grid-template-columns: 1fr; }
+    .gantt, .legend { display: none; }
+    .tl-list { display: block; }
+    .detail { padding: 20px 18px; margin: 8px 0 4px; }
+    .d-title { font-size: 20px; }
+    .stack-row { grid-template-columns: 1fr; gap: 4px; }
+    .topbar { flex-direction: column-reverse; align-items: stretch; gap: 8px; padding: 10px 0; }
+    .top-right { justify-content: flex-end; }
+    .nav a { padding: 4px 8px; font-size: 12.5px; }
+    section { scroll-margin-top: 104px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <nav class="nav" aria-label="섹션 이동">
+      <a href="#profile" data-nav="profile">Profile</a>
+      <a href="#timeline" data-nav="project">Projects</a>
+      <a href="#timeline" data-nav="activity">Activities</a>
+      <a href="#timeline" data-nav="education">Education</a>
+      <a href="#awards" data-nav="awards">Awards</a>
+    </nav>
+    <div class="top-right">
+      <a class="tlink" href="https://github.com/tomchaccom" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="tlink" href="https://velog.io/@tomchaccom/posts" target="_blank" rel="noopener">Velog ↗</a>
+      <button class="icon-btn" id="themeBtn" aria-label="테마 전환" title="테마 전환">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="profile" id="profile"></section>
+
+  <section id="timeline">
+    <p class="eyebrow">02 · Timeline</p>
+    <h2>지금까지 해온 일</h2>
+    <p class="section-desc">프로젝트·대외활동·교육을 한 축에 겹쳐 두었습니다. 막대를 누르면 상세 내용이 열립니다.</p>
+    <div class="legend">
+      <span><i class="sw proj"></i>프로젝트</span>
+      <span><i class="sw act"></i>대외활동</span>
+      <span><i class="sw edu"></i>교육</span>
+      <span><i class="sw award"></i>수상</span>
+      <span><i class="sw cert"></i>자격증</span>
+      <span><i class="sw future"></i>예정 구간</span>
+      <span><i class="sw now"></i>현재</span>
+    </div>
+    <div class="gantt" id="gantt"></div>
+    <ol class="tl-list" id="tlList"></ol>
+    <article class="detail" id="detail" aria-live="polite"></article>
+  </section>
+
+  <section id="side">
+    <p class="eyebrow">03 · Side Projects</p>
+    <h2>사이드 프로젝트</h2>
+    <p class="section-desc">필요해서 직접 만들어 쓰는 도구들입니다.</p>
+    <div class="cards" id="sideCards"></div>
+  </section>
+
+  <section id="awards">
+    <p class="eyebrow">04 · Awards &amp; Certifications</p>
+    <h2>수상 및 자격증</h2>
+    
+    <div class="ac-grid">
+      <div class="ac-box"><h3>Awards</h3><div id="awardList"></div></div>
+      <div class="ac-box"><h3>Certifications</h3><div id="certList"></div></div>
+    </div>
+  </section>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+/* =====================================================================
+   여기만 수정하면 됩니다.
+   - 기간은 'YYYY-MM' 형식. 진행 중이면 end 를 예정 종료월로 두면
+     오늘 이후 구간이 옅게 표시됩니다.
+   - type: 'project' | 'activity' | 'education'  → 타임라인의 줄(lane)이 결정됩니다.
+   - bullets 안에서 [텍스트](URL), `코드` 문법을 쓸 수 있습니다.
+   - award: 해당 항목에 수상이 있으면 막대에 트로피 아이콘이 붙습니다.
+   ===================================================================== */
+const CV = {
+  profile: {
+    name: "Myeongseong Kim",
+    nameSub: "김명성 · Backend Developer",
+    tagline: "AI 기능을 <em>운영 가능한 서비스</em>로 만드는 백엔드 개발자",
+    intro: [
+      "Spring Boot와 FastAPI로 서비스의 뼈대를 만들고, LLM이 들어간 기능이 실제로 믿을 만하게 동작하도록 데이터 모델과 검증 구조를 설계합니다.",
+      "백엔드를 혼자 맡아 앱을 출시하고 무중단 배포까지 직접 운영해 보면서, 기능을 만드는 일과 서비스를 지키는 일이 다르다는 것을 배웠습니다. 제 설계든 AI가 제안한 코드든 반례와 테스트로 먼저 확인하고, 근거를 들어 말하는 방식으로 일합니다."
+    ],
+    stack: [
+      { k: "Backend", v: ["Java", "Spring Boot", "JPA", "Python", "FastAPI"] },
+      { k: "AI", v: ["LangGraph", "LangChain", "Hybrid Search", "LLM Reranker", "Structured Output"] },
+      { k: "Data", v: ["PostgreSQL", "MySQL"] },
+      { k: "Infra", v: ["Docker", "Docker Compose", "Nginx", "GitHub Actions", "AWS", "OCI"] }
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/tomchaccom", icon: "github" }
+      // { label: "Email", url: "mailto:you@example.com", icon: "mail" },
+      // { label: "Blog", url: "https://...", icon: "link" },
+    ]
+  },
+
+  timeline: [
+    {
+      id: "fin-agent", type: "project", short: "fin-agent",
+      title: "fin-agent", url: "https://github.com/tomchaccom/Fin_AI_Agent",
+      subtitle: "금융 질문에 답하는 AI Agent",
+      context: "미래에셋 공모전", start: "2025-06", end: "2025-07", team: "2인 팀",
+      stack: ["Dense Embedding", "TF-IDF (char n-gram)", "LLM Reranker"],
+      bullets: [
+        "사용자 표현을 시스템이 다룰 수 있는 형태로 바꾸는 데이터 전처리 파이프라인 구현",
+        "\"엘지엔솔\" 같은 축약 종목명을 Dense 임베딩 + char n-gram TF-IDF Sparse 검색으로 후보 구성",
+        "두 검색 점수를 정규화·가중 합산한 상위 5개 후보를 원본 질문과 함께 LLM reranker로 최종 선택",
+        "\"총알\" 같은 은어를 일반 금융 표현으로 바꾸는 별도 변환 단계와 금융 지표 도구 구현"
+      ],
+      retro: "표기 차이가 큰 축약어는 여전히 놓쳤고, 가중치를 평가셋 없이 정했습니다. 별칭 사전과 검증용 평가셋을 먼저 설계해야 한다는 점을 확인했습니다."
+    },
+    {
+      id: "tomo", type: "project", short: "Tomo",
+      title: "Tomo Backend", url: "https://github.com/Tomo-dev-team/Tomo-BE",
+      subtitle: "친구와의 모임·친밀도를 기록하는 Android 앱의 백엔드",
+      start: "2025-09", end: "2026-01", role: "백엔드 1인 전담", badges: ["Play Store 출시"],
+      stack: ["Spring Boot", "MySQL", "OCI", "Nginx", "GitHub Actions", "S3"],
+      links: [{ label: "Swagger", url: "https://markoala.shop/swagger-ui/index.html" }],
+      bullets: [
+        "모임·친구·친밀도·타임라인 API 설계 및 구현",
+        "운영 비용을 고려해 AWS EC2·RDS → OCI Compute 2대(App/DB 분리)로 이전",
+        "`dev` push 기반 GitHub Actions 빌드·배포 자동화로 수동 JAR·SCP·SSH 배포 제거",
+        "systemd로 관리하는 8081/8082 포트와 Nginx upstream 전환 기반 Blue-Green 무중단 배포",
+        "Actuator Health Check 통과 시에만 트래픽을 전환하고, 실패 시 기존 경로를 유지하는 배포 안전장치",
+        "Gradle Wrapper 실행 경로 오류와 Health Check 기동 시간 초과 문제를 로그·systemd 상태 추적으로 해결"
+      ]
+    },
+    {
+      id: "madcamp", type: "education", short: "KAIST Madcamp",
+      title: "KAIST Madcamp",
+      subtitle: "주차마다 스택을 바꿔 가며 팀 단위로 MVP를 만드는 몰입형 개발 캠프",
+      start: "2026-01", end: "2026-02", role: "백엔드 · 리드",
+      stack: ["Node.js", "Kotlin", "Spring Boot", "Django"],
+      bullets: [
+        "매 주차 팀이 풀 문제를 먼저 정의하고, 그 문제를 기준으로 기능 범위 결정",
+        "정의한 문제를 바탕으로 짧은 주기 안에 MVP를 만들고 빠르게 확장",
+        "주차별로 바뀌는 스택 환경에서 백엔드 구조 설계와 팀 리드 담당"
+      ]
+    },
+    {
+      id: "pickd", type: "project", short: "PICKD",
+      title: "PICKD", url: "https://github.com/ApptiveDev/pickd-BE",
+      subtitle: "공고·일정·경험·자기소개서를 한곳에서 관리하는 AI 취업 준비 서비스",
+      context: "Apptive 동아리", start: "2026-02", end: "2026-07", role: "백엔드 리드",
+      award: "학습플러스 코칭동아리 장려상",
+      stack: ["Spring Boot", "FastAPI", "LangGraph", "PostgreSQL", "Docker", "Docker Compose", "Nginx", "AWS", "Vercel"],
+      bullets: [
+        "데이터베이스 설계와 핵심 기능 POC 진행",
+        "Docker Compose·Nginx 기반 백엔드 배포와 Vercel 기반 프론트엔드 배포 담당",
+        "사용자 경험을 STAR 형식으로 구조화해 재사용하는 경험 데이터 관리",
+        "직무기술서·자소서 문항 분석 기반 SWOT 경험 추천과 LangGraph 워크플로우 기반 자소서 초안 작성",
+        "채용공고 URL·이미지에서 기업명·전형 일정·제출 서류·문항 자동 추출"
+      ]
+    },
+    {
+      id: "apptive-mentor", type: "activity", short: "Mentor",
+      title: "Mentor",
+      subtitle: "Apptive 동아리 백엔드 스터디 멘토링",
+      start: "2026-03", end: "2026-06", role: "멘토",
+      bullets: [
+        "[DDD 아키텍처 설명](https://github.com/tomchaccom/DDD)",
+        "[N+1 발생 시 쿼리 속도를 로깅하는 실습 서버 개발](https://github.com/tomchaccom/JPA_test)",
+        "[SNS 도메인 코드 리뷰](https://github.com/ApptiveDev/backend-study-24-sns/pulls?q=is%3Apr+state%3Aopen+reviewed-by%3A%40me)"
+      ]
+    },
+    {
+      id: "ktc", type: "education", short: "Kakao Tech Campus 4th",
+      title: "Kakao Tech Campus 4th",
+      subtitle: "팀 프로젝트와 AI Agent 클론코딩을 병행하는 카카오 교육 과정",
+      start: "2026-05", end: "2026-11", award: "아이디어톤 우수상",
+      children: [
+        {
+          id: "ktc4-pusan-3", title: "ktc4-pusan-3", url: "https://github.com/kakaotechcampus-4/ktc4-pusan-3",
+          subtitle: "여러 육아 서비스를 연결해 아이를 가장 오래 이해하는 AI 육아 에이전트",
+          role: "백엔드 리드", award: "아이디어톤 우수상",
+          stack: ["FastAPI", "PostgreSQL", "Docker", "Docker Compose"],
+          bullets: [
+            "데이터 모델 및 룰베이스 설계 담당",
+            "pgvector 활용을 위한 PostgreSQL 도입과 팀 데이터 모델 설계 조율",
+            "정합성이 필요한 룰 관계는 외래키로, 메모리 UUID·태그 목록은 ARRAY·JSONB로 나눈 저장 기준 수립",
+            "런타임에 계산할 수 있는 컬럼 제거로 중복·불일치 가능성 축소"
+          ]
+        },
+        {
+          id: "pusan-clone", title: "pusan-clone", url: "https://github.com/kakaotechcampus-4/pusan-clone",
+          subtitle: "Kanana AI Agent 클론코딩", start: "2026-07", end: "2026-08",
+          stack: ["Python", "LangChain"],
+          links: [{ label: "PR #56", url: "https://github.com/kakaotechcampus-4/pusan-clone/pull/56" }],
+          bullets: [
+            "내 설계와 멘토의 판단을 비교하며 의견을 내고, 그 의도를 코드로 옮기는 연습",
+            "LLM 구조화 출력 검증 파이프라인 설계: 참석자 기반 일정 분류 보정 규칙 추가",
+            "AI 제안 코드의 반례(\"전달 대상\"까지 그룹 일정으로 바뀌는 문제)를 테스트로 잡아 적용 조건 축소",
+            "현직 개발자 리뷰를 반영해 검증기(형식)와 분류 보정(후처리 함수)을 분리하고 단위 테스트 추가",
+            "서브 에이전트 2분 이상 지연 원인이 미구현 도구 목록임을 추적, 목록 정리로 지연 단축"
+          ]
+        }
+      ]
+    }
+  ],
+
+  side: [
+    { title: "Clearn", desc: "로컬 Claude SDK 로그인 기반, 소크라테스 문답식 학습용 AI macOS 데스크톱 앱", url: "https://github.com/tomchaccom/Clearn", tag: "macOS" },
+    { title: "Alsseu", desc: "알고리즘 스터디 문제 풀이 수 자동 집계와 커뮤니티형 대시보드", url: "https://github.com/tomchaccom/Alsseu", tag: "Web" }
+  ],
+
+  awards: [
+    { date: "2026-08", name: "카카오테크 캠퍼스 아이디어톤", rank: "우수상", by: "카카오테크 캠퍼스", rel: "ktc" },
+    { date: "2026-07", name: "학습플러스 코칭동아리 우수팀", rank: "장려상", by: "PICKD", rel: "pickd" },
+    { date: "2025-06", name: "한국정보기술학회 하계종합학술대회", rank: "동상", by: "한국정보기술학회" }
+  ],
+  certs: [
+    { date: "2026-06", name: "정보처리기사", by: "한국산업인력공단" },
+    { date: "2025-09", name: "SQL 개발자 (SQLD)", by: "한국데이터산업진흥원" },
+    { date: "2025-09", name: "데이터분석 준전문가 (ADsP)", by: "한국데이터산업진흥원" }
+  ]
+};
+
+/* ===================================================================== */
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const md = s => esc(s)
+  .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+  .replace(/`([^`]+)`/g, "<code>$1</code>");
+const ym = s => { const [y, m] = s.split("-").map(Number); return y * 12 + (m - 1); };
+const fmt = s => s.replace("-", ".");
+const ICON = {
+  github: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>',
+  mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>',
+  link: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
+  trophy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg>',
+  arrow: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg>'
+};
+const TYPE = { project: { cls: "proj", label: "프로젝트" }, activity: { cls: "act", label: "대외활동" }, education: { cls: "edu", label: "교육" } };
+
+const now = new Date();
+const nowIdx = now.getFullYear() * 12 + now.getMonth() + (now.getDate() - 1) / new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+
+/* ---------- profile ---------- */
+function renderProfile() {
+  const p = CV.profile;
+  $("#profile").innerHTML = `
+    <p class="eyebrow">01 · Profile</p>
+    <h1 class="name">${esc(p.name)}</h1>
+    <p class="name-sub">${esc(p.nameSub)}</p>
+    <p class="tagline">${p.tagline}</p>
+    <div class="intro">${p.intro.map(t => `<p>${md(t)}</p>`).join("")}</div>
+    <div class="links">${p.links.map(l => `<a class="chip-link" href="${esc(l.url)}" target="_blank" rel="noopener">${ICON[l.icon] || ICON.link}${esc(l.label)}</a>`).join("")}</div>
+    <div class="stack">${p.stack.map(r => `
+      <div class="stack-row"><span class="k">${esc(r.k)}</span><div class="tags">${r.v.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div></div>`).join("")}
+    </div>`;
+  $("#footer").innerHTML = `© ${now.getFullYear()} ${esc(p.name)} · Last updated ${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, "0")}`;
+}
+
+/* ---------- gantt ---------- */
+function renderGantt() {
+  const items = CV.timeline;
+  const marks = [...CV.awards.map(a => ({ ...a, kind: "award" })), ...CV.certs.map(c => ({ ...c, kind: "cert" }))];
+  const allIdx = [...items.flatMap(i => [ym(i.start), ym(i.end)]), ...marks.map(m => ym(m.date))];
+  const start = Math.min(...allIdx), end = Math.max(...allIdx) + 1;   // end exclusive
+  const total = end - start;
+  const pct = idx => ((idx - start) / total) * 100;
+  const col = `calc(100% / ${total})`;
+
+  // axis
+  let axis = "";
+  for (let i = start; i < end; i++) {
+    const y = Math.floor(i / 12), m = (i % 12) + 1;
+    if (m === 1 || i === start) axis += `<span class="year" style="left:${pct(i)}%">${y}</span>`;
+    axis += `<span class="tick" style="left:${pct(i + .5)}%">${m}</span>`;
+  }
+  const nowIn = nowIdx >= start && nowIdx <= end;
+  const nowLine = nowIn ? `<i class="now-line" style="left:${pct(nowIdx)}%"></i>` : "";
+
+  // lanes with overlap stacking
+  const lanes = [["project", "Projects"], ["activity", "Activities"], ["education", "Education"]].map(([type, label]) => {
+    const rows = [];
+    const list = items.filter(i => i.type === type).sort((a, b) => ym(a.start) - ym(b.start));
+    const placed = list.map(it => {
+      let r = rows.findIndex(lastEnd => lastEnd < ym(it.start));
+      if (r === -1) { r = rows.length; rows.push(0); }
+      rows[r] = ym(it.end);
+      return { it, r };
+    });
+    const H = 36, G = 10, PAD = 14;
+    const height = PAD * 2 + rows.length * H + (rows.length - 1) * G;
+    const bars = placed.map(({ it, r }) => {
+      const s = ym(it.start), e = ym(it.end) + 1;
+      const future = nowIdx < e && nowIdx > s ? ((nowIdx - s) / (e - s)) * 100 : (nowIdx <= s ? 0 : 100);
+      const t = TYPE[it.type];
+      return `<button class="bar ${t.cls}" data-id="${it.id}" aria-pressed="false"
+        style="left:calc(${pct(s)}% + 3px);width:calc(${(e - s) / total * 100}% - 6px);top:${PAD + r * (H + G)}px;--p:${future.toFixed(1)}%"
+        title="${esc(it.title)} · ${fmt(it.start)} ~ ${fmt(it.end)}">
+        ${it.award ? ICON.trophy : ""}<span class="lbl">${esc(it.short || it.title)}</span></button>`;
+    }).join("");
+    return `<div class="g-row"><div class="g-label">${label}</div><div class="g-track" style="height:${height}px;--col:${col}">${bars}${nowLine}</div></div>`;
+  }).join("");
+
+  // milestones grouped by month
+  const byMonth = {};
+  marks.forEach(m => (byMonth[m.date] ||= []).push(m));
+  const ms = Object.entries(byMonth).map(([d, arr]) => {
+    const kinds = new Set(arr.map(a => a.kind));
+    const cls = kinds.size > 1 ? "both" : [...kinds][0];
+    const tip = arr.map(a => `${a.kind === "award" ? "[수상]" : "[자격]"} ${esc(a.name)}${a.rank ? " " + esc(a.rank) : ""}`).join("<br>");
+    return `<button class="ms ${cls}" style="left:${pct(ym(d) + .5)}%" data-goto="awards" aria-label="${fmt(d)} 수상·자격증 보기">
+      ${arr.length > 1 ? arr.length : ""}<span class="tip"><b>${fmt(d)}</b><br>${tip}</span></button>`;
+  }).join("");
+
+  $("#gantt").innerHTML = `
+    <div class="g-row g-axis"><div class="g-label"></div><div class="g-track">${axis}${nowIn ? `<span class="now-flag" style="left:${pct(nowIdx)}%">NOW</span>` : ""}</div></div>
+    ${lanes}
+    <div class="g-row"><div class="g-label">Awards</div><div class="g-track" style="height:52px;--col:${col}">${ms}${nowLine}</div></div>`;
+}
+
+/* ---------- mobile list ---------- */
+function renderList() {
+  const list = [...CV.timeline].sort((a, b) => ym(b.start) - ym(a.start));
+  $("#tlList").innerHTML = list.map(it => `
+    <li class="tl-item" id="li-${it.id}" data-type="${it.type}">
+      <i class="tl-dot ${TYPE[it.type].cls}"></i>
+      <button class="tl-btn" data-id="${it.id}" aria-expanded="false">
+        <span class="period">${fmt(it.start)} ~ ${fmt(it.end)} · ${TYPE[it.type].label}</span>
+        <span class="t">${esc(it.title)}${it.award ? " ★" : ""}</span>
+        <span class="s">${esc(it.subtitle)}</span>
+      </button>
+    </li>`).join("");
+}
+
+/* ---------- detail ---------- */
+function block(it, isChild = false) {
+  const t = TYPE[it.type];
+  const period = it.start ? `<span class="mono">${fmt(it.start)} ~ ${fmt(it.end)}</span>` : "";
+  const status = it.end && ym(it.end) + 1 > nowIdx && (!it.start || ym(it.start) <= nowIdx) ? `<span class="pill plain">진행 중</span>` : "";
+  const meta = [
+    !isChild && t ? `<span class="pill ${t.cls}">${t.label}</span>` : "",
+    period, it.context ? esc(it.context) : "", it.role ? esc(it.role) : "", it.team ? esc(it.team) : ""
+  ].filter(Boolean).join(`<span class="dot-sep">·</span>`);
+  const badges = [
+    status,
+    ...(it.badges || []).map(b => `<span class="pill plain">${esc(b)}</span>`),
+    it.award && (isChild || !it.children) ? `<span class="pill award">★ ${esc(it.award)}</span>` : ""
+  ].join("");
+  const links = [
+    it.url ? `<a class="chip-link" href="${esc(it.url)}" target="_blank" rel="noopener">${ICON.github}Repository</a>` : "",
+    ...(it.links || []).map(l => `<a class="chip-link" href="${esc(l.url)}" target="_blank" rel="noopener">${ICON.link}${esc(l.label)}</a>`)
+  ].join("");
+  const Title = isChild ? "h4" : "h3";
+  return `
+    <div class="d-meta">${meta}${badges}</div>
+    <${Title} class="d-title">${it.url ? `<a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.title)} ${ICON.arrow}</a>` : esc(it.title)}</${Title}>
+    <p class="d-sub">${esc(it.subtitle)}</p>
+    ${links ? `<div class="d-links">${links}</div>` : ""}
+    ${it.stack ? `<div class="tags">${it.stack.map(s => `<span class="tag">${esc(s)}</span>`).join("")}</div>` : ""}
+    ${it.bullets ? `<p class="d-h">${it.type === "activity" && !it.children && !it.stack ? "Contents" : "What I did"}</p><ul class="d-list">${it.bullets.map(b => `<li>${md(b)}</li>`).join("")}</ul>` : ""}
+    ${it.retro ? `<p class="d-h">Retrospective</p><div class="d-note">${md(it.retro)}</div>` : ""}`;
+}
+
+function renderDetail(id, childId) {
+  const it = CV.timeline.find(i => i.id === id);
+  if (!it) return;
+  let html = block(it);
+  if (it.children) {
+    const cur = childId || it.children[0].id;
+    html += `<div class="children-tabs" role="tablist">${it.children.map(c =>
+      `<button class="ctab" role="tab" data-parent="${it.id}" data-child="${c.id}" aria-selected="${c.id === cur}">${esc(c.title)}</button>`).join("")}</div>`;
+    const c = it.children.find(c => c.id === cur);
+    html += `<div class="child">${block(c, true)}</div>`;
+  }
+  const d = $("#detail");
+  d.innerHTML = html;
+  d.hidden = false;
+  d.dataset.current = id;
+}
+
+/* ---------- side / awards ---------- */
+function renderRest() {
+  $("#sideCards").innerHTML = CV.side.map(s => `
+    <a class="card" href="${esc(s.url)}" target="_blank" rel="noopener">
+      <h3>${esc(s.title)} <span>${esc(s.tag || "")} ↗</span></h3><p>${esc(s.desc)}</p></a>`).join("");
+  const byDate = (a, b) => ym(b.date) - ym(a.date);
+  $("#awardList").innerHTML = [...CV.awards].sort(byDate).map(a => `
+    <div class="ac-item"><span class="date">${fmt(a.date)}</span>
+      <div><span class="what">${esc(a.name)} <span class="rank">${esc(a.rank)}</span></span>
+      <span class="by">${esc(a.by)}</span>
+      ${a.rel ? `<button class="rel" data-jump="${a.rel}">타임라인에서 보기 →</button>` : ""}</div></div>`).join("");
+  $("#certList").innerHTML = [...CV.certs].sort(byDate).map(c => `
+    <div class="ac-item"><span class="date">${fmt(c.date)}</span>
+      <div><span class="what">${esc(c.name)}</span><span class="by">${esc(c.by)}</span></div></div>`).join("");
+}
+
+/* ---------- interactions ---------- */
+const mq = window.matchMedia("(max-width: 760px)");
+
+function select(id, { scroll = true, childId } = {}) {
+  renderDetail(id, childId);
+  document.querySelectorAll(".bar").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.id === id)));
+  document.querySelectorAll(".tl-btn").forEach(b => b.setAttribute("aria-expanded", String(b.dataset.id === id)));
+  const d = $("#detail");
+  if (mq.matches) {
+    $("#li-" + id).appendChild(d);
+  } else if (d.parentElement.id !== "timeline") {
+    $("#timeline").appendChild(d);
+  }
+  if (scroll) {
+    const r = d.getBoundingClientRect();
+    if (r.top < 0 || r.top > window.innerHeight * 0.7) d.scrollIntoView({ block: "start" });
+  }
+}
+
+function placeDetail() {
+  const id = $("#detail").dataset.current;
+  if (id) select(id, { scroll: false });
+}
+
+document.addEventListener("click", e => {
+  const bar = e.target.closest(".bar, .tl-btn");
+  if (bar) {
+    if (mq.matches && bar.getAttribute("aria-expanded") === "true") {
+      bar.setAttribute("aria-expanded", "false"); $("#detail").hidden = true; return;
+    }
+    return select(bar.dataset.id);
+  }
+  const tab = e.target.closest(".ctab");
+  if (tab) return select(tab.dataset.parent, { childId: tab.dataset.child, scroll: false });
+  const nav = e.target.closest("[data-nav]");
+  if (nav) return navTo(nav.dataset.nav, e);
+  const ms = e.target.closest("[data-goto]");
+  if (ms) return document.getElementById(ms.dataset.goto).scrollIntoView();
+  const jump = e.target.closest("[data-jump]");
+  if (jump) { select(jump.dataset.jump, { scroll: false }); (mq.matches ? $("#li-" + jump.dataset.jump) : $("#timeline")).scrollIntoView(); }
+});
+mq.addEventListener("change", placeDetail);
+
+/* 막대가 좁아 제목이 잘리면 작은 글씨 두 줄로 표시 */
+function fitLabels() {
+  document.querySelectorAll(".bar").forEach(b => {
+    b.classList.remove("tight");
+    const l = b.querySelector(".lbl");
+    if (l && l.scrollWidth > l.clientWidth + 1) b.classList.add("tight");
+  });
+}
+window.addEventListener("resize", fitLabels);
+if (document.fonts) document.fonts.ready.then(fitLabels);
+
+/* ---------- view switching ---------- */
+let currentView = null;
+function switchView(view) {
+  currentView = view;
+  const ids = ["profile", "timeline", "side", "awards"];
+  ids.forEach(id => document.getElementById(id).style.display = "none");
+
+  if (view === "profile") {
+    $("#profile").style.display = "";
+    $("#side").style.display = "";
+  } else if (view === "awards") {
+    $("#awards").style.display = "";
+  } else {
+    // project | activity | education
+    $("#timeline").style.display = "";
+    // filter timeline
+    document.querySelectorAll(".bar").forEach(b => {
+      const it = CV.timeline.find(i => i.id === b.dataset.id);
+      b.classList.toggle("dim", it.type !== view);
+    });
+    document.querySelectorAll(".ms").forEach(m => m.classList.toggle("dim", true));
+    document.querySelectorAll(".tl-item").forEach(li => li.classList.toggle("hide", li.dataset.type !== view));
+    // auto-select first item
+    const list = CV.timeline.filter(i => i.type === view).sort((a, b) => ym(b.start) - ym(a.start));
+    if (list.length) select(list[0].id, { scroll: false });
+  }
+  document.querySelectorAll(".nav a").forEach(a => a.classList.toggle("on", a.dataset.nav === view));
+  window.scrollTo(0, 0);
+  history.replaceState(null, "", "#" + view);
+}
+function navTo(key, e) {
+  e.preventDefault();
+  switchView(key);
+}
+
+/* ---------- theme ---------- */
+(function theme() {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("cv-theme"); if (t) root.dataset.theme = t; } catch (_) {}
+  $("#themeBtn").addEventListener("click", () => {
+    const cur = root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    root.dataset.theme = cur === "dark" ? "light" : "dark";
+    try { localStorage.setItem("cv-theme", root.dataset.theme); } catch (_) {}
+  });
+})();
+
+/* ---------- init ---------- */
+renderProfile();
+renderGantt();
+renderList();
+renderRest();
+fitLabels();
+const hash = location.hash.replace("#", "");
+const validViews = ["profile", "project", "activity", "education", "awards"];
+switchView(validViews.includes(hash) ? hash : "profile");
+</script>
+</body>
+</html>
