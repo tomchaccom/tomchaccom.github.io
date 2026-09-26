@@ -16,13 +16,6 @@
     --font: "IBM Plex Mono", "IBM Plex Sans KR", ui-monospace, Menlo, monospace;
     color-scheme: light;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0a0a0a; --surface: #0a0a0a; --surface-2: #171717;
-      --text: #f2f2f2; --text-2: #cfcfcf; --muted: #8c8c8c; --line: #262626; --line-2: #404040;
-      color-scheme: dark;
-    }
-  }
   :root[data-theme="dark"] {
     --bg: #0a0a0a; --surface: #0a0a0a; --surface-2: #171717;
     --text: #f2f2f2; --text-2: #cfcfcf; --muted: #8c8c8c; --line: #262626; --line-2: #404040;
@@ -338,7 +331,6 @@ const CV = {
       { k: "Infra", v: ["Docker", "Docker Compose", "Nginx", "GitHub Actions", "AWS", "OCI"] }
     ],
     links: [
-      { label: "GitHub", url: "https://github.com/tomchaccom", icon: "github" }
       // { label: "Email", url: "mailto:you@example.com", icon: "mail" },
       // { label: "Blog", url: "https://...", icon: "link" },
     ]
